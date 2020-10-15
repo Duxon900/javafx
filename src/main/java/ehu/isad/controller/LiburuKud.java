@@ -34,12 +34,9 @@ public class LiburuKud implements Initializable {
     Details unekoa=(Details) comboLiburua.getValue();
     Book nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
 
-   //mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
+    mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
 
     mainApp.xehetasunakErakutsi();
-
-
-
   }
 
   @Override
@@ -69,6 +66,5 @@ public class LiburuKud implements Initializable {
       }
     });
   }
-
 
 }

@@ -56,14 +56,15 @@ public class Liburuak extends Application {
   }
 
   public void liburuakErakutsi() {
-    stage.setScene(new Scene(liburuKudUI));
+    System.out.println("estoy aqui");
+    Scene scene=new Scene(liburuKudUI);
+    System.out.println("soy yo");
+
+    stage.setScene(scene);
     stage.show();
+    System.out.println("a que no me ves");
   }
 
-
-  public LiburuKud getLiburuKud(){
-    return liburuKud;
-  }
 
   public XehetasunakKud getXehetasunakKud(){
     return xehetasunakKud;
