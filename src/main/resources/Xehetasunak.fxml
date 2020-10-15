@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ehu.isad.controller.XehetasunakKud">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ehu.isad.controller.XehetasunakKud">
    <children>
-      <Label layoutX="264.0" layoutY="156.0" text="Hola bro" />
+      <Label fx:id="lblIzenburuHandia" layoutX="89.0" layoutY="54.0" text="Pene">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="132.0" layoutY="128.0" text="Izenburua:" />
+      <Label fx:id="lblIzenburua" layoutX="223.0" layoutY="128.0" prefHeight="16.0" prefWidth="294.0" text="PENE" />
+      <Label layoutX="118.0" layoutY="168.0" text="Argitaletxea:" />
+      <Label layoutX="141.0" layoutY="206.0" text="Orri kop.:" />
+      <Label layoutX="160.0" layoutY="246.0" text="Irudia:" />
+      <Button fx:id="btnAtzera" layoutX="316.0" layoutY="480.0" mnemonicParsing="false" onAction="#onAction" text="Atzera" />
+      <Label fx:id="lblArgitaletxea" layoutX="223.0" layoutY="168.0" prefHeight="16.0" prefWidth="294.0" text="PENE" />
+      <Label fx:id="lblOrriKop" layoutX="223.0" layoutY="206.0" prefHeight="16.0" prefWidth="294.0" text="PENE" />
    </children>
 </AnchorPane>

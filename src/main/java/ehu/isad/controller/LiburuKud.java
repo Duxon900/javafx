@@ -1,7 +1,9 @@
 package ehu.isad.controller;
 
+import ehu.isad.Book;
 import ehu.isad.Details;
 import ehu.isad.Liburuak;
+import ehu.isad.utils.Sarea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +31,13 @@ public class LiburuKud implements Initializable {
 
   @FXML
   public void onClick(ActionEvent actionEvent){
+    Details unekoa=(Details) comboLiburua.getValue();
+    Book nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
+
+   //mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
+
+    mainApp.xehetasunakErakutsi();
+
 
 
   }

@@ -6,7 +6,7 @@ public class Details {
     String isbn;
     String[] publishers;
     String title;
-    int number_of_pages;
+    String number_of_pages;
 
     public Details(String titleA,String isbnA){
         this.isbn=isbnA;
@@ -22,7 +22,7 @@ public class Details {
                 '}';
     }
 
-    public int getNumber_of_pages(){
+    public String getNumber_of_pages(){
         return number_of_pages;
     }
 
@@ -37,5 +37,7 @@ public class Details {
     public String getIsbn(){
         return isbn;
     }
+
+
 
 }

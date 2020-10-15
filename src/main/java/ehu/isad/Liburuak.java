@@ -50,8 +50,22 @@ public class Liburuak extends Application {
     launch(args);
   }
 
-  public void mainErakutsi() {
+  public void xehetasunakErakutsi() {
+    stage.setScene(new Scene(xehetasunakUI));
+    stage.show();
+  }
+
+  public void liburuakErakutsi() {
     stage.setScene(new Scene(liburuKudUI));
     stage.show();
+  }
+
+
+  public LiburuKud getLiburuKud(){
+    return liburuKud;
+  }
+
+  public XehetasunakKud getXehetasunakKud(){
+    return xehetasunakKud;
   }
 }

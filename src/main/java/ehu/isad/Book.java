@@ -22,4 +22,8 @@ public class Book {
                 '}';
     }
 
+    public Details getDetails(){
+        return this.details;
+    }
+
 }
