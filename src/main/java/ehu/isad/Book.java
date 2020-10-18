@@ -26,4 +26,8 @@ public class Book {
         return this.details;
     }
 
+    public String getThumbnail_url(){
+        return this.thumbnail_url;
+    }
+
 }

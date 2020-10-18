@@ -9,8 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,18 +27,22 @@ public class LiburuKud implements Initializable {
   @FXML
   private ComboBox comboLiburua;
 
+
+
   public void setMainApp(Liburuak main) {
     this.mainApp = main;
   }
 
   @FXML
-  public void onClick(ActionEvent actionEvent){
-    Details unekoa=(Details) comboLiburua.getValue();
-    Book nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
+  public void onClick(ActionEvent actionEvent) throws IOException {
+    if(comboLiburua.getValue()!=null){
+      Details unekoa=(Details) comboLiburua.getValue();
+      Book nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
 
-    mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
+      mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
 
-    mainApp.xehetasunakErakutsi();
+      mainApp.xehetasunakErakutsi();
+    }
   }
 
   @Override

@@ -17,6 +17,9 @@ public class Liburuak extends Application {
 
   private Stage stage;
 
+  private Scene liburuKudScene;
+  private Scene xehetasunakKudScene;
+
   private LiburuKud liburuKud;
   private XehetasunakKud xehetasunakKud;
 
@@ -28,7 +31,9 @@ public class Liburuak extends Application {
     pantailakKargatu();
 
     stage.setTitle("Liburuak");
-    stage.setScene(new Scene(liburuKudUI, 700, 600));
+    liburuKudScene=new Scene(liburuKudUI,700,600);
+    xehetasunakKudScene=new Scene(xehetasunakUI,700,600);
+    stage.setScene(liburuKudScene);
     stage.show();
   }
 
@@ -51,18 +56,13 @@ public class Liburuak extends Application {
   }
 
   public void xehetasunakErakutsi() {
-    stage.setScene(new Scene(xehetasunakUI));
+    stage.setScene(xehetasunakKudScene);
     stage.show();
   }
 
   public void liburuakErakutsi() {
-    System.out.println("estoy aqui");
-    Scene scene=new Scene(liburuKudUI);
-    System.out.println("soy yo");
-
-    stage.setScene(scene);
+    stage.setScene(liburuKudScene);
     stage.show();
-    System.out.println("a que no me ves");
   }
 
 
