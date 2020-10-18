@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -19,11 +20,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class XehetasunakKud{
     //References to main application
     private Liburuak mainApp;
+
+    @FXML
+    private AnchorPane ancrPane;
 
     @FXML
     private Label lblIzenburuHandia;
@@ -58,10 +63,11 @@ public class XehetasunakKud{
         lblArgitaletxea.setText(details.getPublishers());
         lblOrriKop.setText(details.getNumber_of_pages());
 
-        System.out.println(liburua.getThumbnail_url());
-        //Image argazki=createImage(liburua.getThumbnail_url());
-        Image argazki=lortuIrudia("9788483258866.jpg");
-        imgArgazki.setImage(argazki);
+
+        String argazkiUrl=liburua.getThumbnail_url();
+        argazkiUrl=irudiaHanditu(argazkiUrl);
+        Image argazki=createImage(argazkiUrl);
+        imageView.setImage(argazki);
     }
 
     @FXML
@@ -78,11 +84,13 @@ public class XehetasunakKud{
         }
     }
 
-    //unean hautatutako elementuaren irudia lortzeko
-    private Image lortuIrudia(String location) throws IOException {
-        InputStream is = getClass().getResourceAsStream("/" + location);
-        BufferedImage reader = ImageIO.read(is);
-        return SwingFXUtils.toFXImage(reader, null);
+    public String irudiaHanditu(String Url){
+        String[] array=Url.split("-S.");
+
+        String emaitza=array[0];
+        emaitza=emaitza+"-M.";
+        emaitza=emaitza+array[1];
+        return emaitza;
     }
 
 }
