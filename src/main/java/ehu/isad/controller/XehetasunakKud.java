@@ -4,31 +4,21 @@ import ehu.isad.Book;
 import ehu.isad.Details;
 import ehu.isad.Liburuak;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class XehetasunakKud{
     //References to main application
     private Liburuak mainApp;
-
-    @FXML
-    private AnchorPane ancrPane;
 
     @FXML
     private Label lblIzenburuHandia;
