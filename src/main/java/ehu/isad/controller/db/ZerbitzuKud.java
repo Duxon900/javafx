@@ -9,6 +9,8 @@ public class ZerbitzuKud {
 
     private static final ZerbitzuKud instance = new ZerbitzuKud();
 
+    private int id = 5;
+
     public static ZerbitzuKud getInstance() {
         return instance;
     }
@@ -18,15 +20,16 @@ public class ZerbitzuKud {
 
     public List<String> lortuZerbitzuak() {
 
-        String query = "select id, izena from services";
+        String query = "select idservices, izena from services";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
         List<String> emaitza = new ArrayList<>();
         try {
             while (rs.next()) {
 
-                int kodea = rs.getInt("id");
+                int kodea = rs.getInt("idservices");
                 String izena = rs.getString("izena");
 
                 System.out.println(kodea + ":" + izena);
@@ -39,4 +42,18 @@ public class ZerbitzuKud {
 
         return emaitza;
     }
+
+    public void dropRow(String izena){
+        String query = "delete from zerbitzuakDuxon.services where izena='"+izena+"';";
+        DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
+
+    public void sartuElem(String izena){
+        String query="insert into zerbitzuakDuxon.services (`izena`) values('"+izena+"');";
+        DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+
+    }
+
 }

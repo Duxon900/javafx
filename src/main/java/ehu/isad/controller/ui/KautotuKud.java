@@ -37,11 +37,16 @@ public class KautotuKud implements Initializable {
         System.out.println(txtErabiltzaile.getText() + ":" + txtPasahitza.getText());
         System.out.println(comboZerbitzua.getValue());
 
-        if ("Flickr".equals(comboZerbitzua.getValue()) &&
-                "juanan".equals(txtErabiltzaile.getText()) &&
-                "pereira".equals(txtPasahitza.getText())) {
+        String izena= (String)comboZerbitzua.getValue();
+        List<String> lista= ZerbitzuKud.getInstance().lortuZerbitzuak();
 
-            mainApp.mainErakutsi();
+
+        if (!lista.contains(izena)){
+            comboZerbitzua.getItems().add(izena);
+            ZerbitzuKud.getInstance().sartuElem(izena);
+        }
+        else {
+            System.out.println("good job bratan!");
         }
     }
 
@@ -52,6 +57,13 @@ public class KautotuKud implements Initializable {
 
         comboZerbitzua.setItems( herrialdeak );
 
+    }
+
+    @FXML
+    void ezabatuElementua(ActionEvent event) {
+        String izena= (String)comboZerbitzua.getValue();
+        comboZerbitzua.getItems().remove(izena);
+        ZerbitzuKud.getInstance().dropRow(izena);
     }
 
 }

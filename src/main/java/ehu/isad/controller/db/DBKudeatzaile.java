@@ -73,4 +73,6 @@ public class DBKudeatzaile {
 		}
 		return rs;
 	}
+
+
 }
