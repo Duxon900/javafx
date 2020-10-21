@@ -53,11 +53,16 @@ public class XehetasunakKud{
         lblArgitaletxea.setText(details.getPublishers());
         lblOrriKop.setText(details.getNumber_of_pages());
 
+        gordeDatuBasean(liburua);
+
 
         String argazkiUrl=liburua.getThumbnail_url();
         argazkiUrl=irudiaHanditu(argazkiUrl);
         Image argazki=createImage(argazkiUrl);
         imageView.setImage(argazki);
+
+
+
     }
 
     @FXML
@@ -80,6 +85,38 @@ public class XehetasunakKud{
         String emaitza=array[0];
         emaitza=emaitza+"-M.";
         emaitza=emaitza+array[1];
+        return emaitza;
+    }
+
+
+    public void gordeDatuBasean(Book liburua){
+        String query="insert into Liburuak values("+lortuLiburuBalioak(liburua)+");";
+
+        DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
+
+
+    public String lortuLiburuBalioak(Book liburua){
+        String emaitza="";
+
+        System.out.println(liburua.getDetails().getIsbn());
+
+        emaitza=emaitza+"isbn='"+liburua.getDetails().getIsbn()+"',";
+
+        String publishers=liburua.getDetails().getPublishers();
+
+        publishers=publishers.replace('\'',' ');
+        emaitza=emaitza+"publishers='"+publishers+"',";
+        emaitza=emaitza+"title='"+liburua.getDetails().getTitle()+"',";
+        emaitza=emaitza+"number_of_pages='"+liburua.getDetails().getNumber_of_pages()+"',";
+
+        emaitza=emaitza+"info_url='"+liburua.getInfo_url()+"',";
+        emaitza=emaitza+"bib_key='"+liburua.getBib_key()+"',";
+        emaitza=emaitza+"preview_url='"+liburua.getBib_key()+"',";
+        emaitza=emaitza+"thumbnail_url='"+liburua.getThumbnail_url()+"',";
+        emaitza=emaitza+"preview='"+liburua.getPreview()+"'";
+
         return emaitza;
     }
 
