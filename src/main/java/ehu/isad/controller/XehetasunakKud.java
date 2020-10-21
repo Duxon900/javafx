@@ -4,6 +4,7 @@ import ehu.isad.Book;
 import ehu.isad.Details;
 import ehu.isad.Liburuak;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -53,16 +57,15 @@ public class XehetasunakKud{
         lblArgitaletxea.setText(details.getPublishers());
         lblOrriKop.setText(details.getNumber_of_pages());
 
-        gordeDatuBasean(liburua);
-
-
         String argazkiUrl=liburua.getThumbnail_url();
         argazkiUrl=irudiaHanditu(argazkiUrl);
         Image argazki=createImage(argazkiUrl);
         imageView.setImage(argazki);
 
-
-
+        //Datuak db-an gordetzeko
+        LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
+        String path=liburuDBKudeatzaile.saveToFile(argazki, details.getIsbn());
+        liburuDBKudeatzaile.gordeDatuBasean(liburua,path);
     }
 
     @FXML
@@ -89,35 +92,6 @@ public class XehetasunakKud{
     }
 
 
-    public void gordeDatuBasean(Book liburua){
-        String query="insert into `Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) values("+lortuLiburuBalioak(liburua)+");";
 
-        DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
-        dbKudeatzaile.execSQL(query);
-    }
-
-//INSERT INTO `openLibrary`.`Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) VALUES ('1', '2', '3', '3', '4', '1', '34', '1', '4');
-
-    public String lortuLiburuBalioak(Book liburua){
-        String emaitza="";
-
-
-        emaitza=emaitza+"'"+liburua.getDetails().getIsbn()+"',";
-
-        String publishers=liburua.getDetails().getPublishers();
-
-        publishers=publishers.replace('\'',' ');
-        emaitza=emaitza+"'"+publishers+"',";
-        emaitza=emaitza+"'"+liburua.getDetails().getTitle()+"',";
-        emaitza=emaitza+""+liburua.getDetails().getNumber_of_pages()+",";
-
-        emaitza=emaitza+"'"+liburua.getInfo_url()+"',";
-        emaitza=emaitza+"'"+liburua.getBib_key()+"',";
-        emaitza=emaitza+"'"+liburua.getBib_key()+"',";
-        emaitza=emaitza+"'"+liburua.getThumbnail_url()+"',";
-        emaitza=emaitza+"'"+liburua.getPreview()+"'";
-
-        return emaitza;
-    }
 
 }
