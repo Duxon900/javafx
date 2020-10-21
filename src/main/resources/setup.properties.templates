@@ -1,4 +1,4 @@
-dbname=zerbitzuakDuxon
+dbname=openLibrary
 user=admin
 password=admin
 useSSL=FALSE

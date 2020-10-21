@@ -37,6 +37,7 @@ public class LiburuKud implements Initializable {
     if(comboLiburua.getValue()!=null){
       Details unekoa= comboLiburua.getValue();
       Book nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
+      nireLiburua.getDetails().setIsbn(unekoa.getIsbn());
 
       mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
 

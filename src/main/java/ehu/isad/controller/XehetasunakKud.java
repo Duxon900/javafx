@@ -90,32 +90,32 @@ public class XehetasunakKud{
 
 
     public void gordeDatuBasean(Book liburua){
-        String query="insert into Liburuak values("+lortuLiburuBalioak(liburua)+");";
+        String query="insert into `Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) values("+lortuLiburuBalioak(liburua)+");";
 
         DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
         dbKudeatzaile.execSQL(query);
     }
 
+//INSERT INTO `openLibrary`.`Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) VALUES ('1', '2', '3', '3', '4', '1', '34', '1', '4');
 
     public String lortuLiburuBalioak(Book liburua){
         String emaitza="";
 
-        System.out.println(liburua.getDetails().getIsbn());
 
-        emaitza=emaitza+"isbn='"+liburua.getDetails().getIsbn()+"',";
+        emaitza=emaitza+"'"+liburua.getDetails().getIsbn()+"',";
 
         String publishers=liburua.getDetails().getPublishers();
 
         publishers=publishers.replace('\'',' ');
-        emaitza=emaitza+"publishers='"+publishers+"',";
-        emaitza=emaitza+"title='"+liburua.getDetails().getTitle()+"',";
-        emaitza=emaitza+"number_of_pages='"+liburua.getDetails().getNumber_of_pages()+"',";
+        emaitza=emaitza+"'"+publishers+"',";
+        emaitza=emaitza+"'"+liburua.getDetails().getTitle()+"',";
+        emaitza=emaitza+""+liburua.getDetails().getNumber_of_pages()+",";
 
-        emaitza=emaitza+"info_url='"+liburua.getInfo_url()+"',";
-        emaitza=emaitza+"bib_key='"+liburua.getBib_key()+"',";
-        emaitza=emaitza+"preview_url='"+liburua.getBib_key()+"',";
-        emaitza=emaitza+"thumbnail_url='"+liburua.getThumbnail_url()+"',";
-        emaitza=emaitza+"preview='"+liburua.getPreview()+"'";
+        emaitza=emaitza+"'"+liburua.getInfo_url()+"',";
+        emaitza=emaitza+"'"+liburua.getBib_key()+"',";
+        emaitza=emaitza+"'"+liburua.getBib_key()+"',";
+        emaitza=emaitza+"'"+liburua.getThumbnail_url()+"',";
+        emaitza=emaitza+"'"+liburua.getPreview()+"'";
 
         return emaitza;
     }
