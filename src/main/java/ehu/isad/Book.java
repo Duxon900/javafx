@@ -30,4 +30,19 @@ public class Book {
         return this.thumbnail_url;
     }
 
+    public String getInfo_url(){
+        return this.info_url;
+    }
+
+    public String getBib_key(){
+        return this.bib_key;
+    }
+
+    public String getPreview_url(){
+        return this.preview_url;
+    }
+
+    public String getPreview(){
+        return this.preview;
+    }
 }

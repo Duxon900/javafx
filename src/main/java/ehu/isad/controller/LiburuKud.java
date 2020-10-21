@@ -41,6 +41,8 @@ public class LiburuKud implements Initializable {
       mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
 
       mainApp.xehetasunakErakutsi();
+
+      gordeDatuBasean(nireLiburua);
     }
   }
 
@@ -70,6 +72,32 @@ public class LiburuKud implements Initializable {
         return null;
       }
     });
+  }
+
+
+  public void gordeDatuBasean(Book liburua){
+    String query="insert into openLibrary.Liburuak values("+lortuLiburuBalioak(liburua)+");";
+
+    DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
+    dbKudeatzaile.execSQL(query);
+  }
+
+
+  public String lortuLiburuBalioak(Book liburua){
+    String emaitza="";
+
+    emaitza=emaitza+"isbn='"+liburua.getDetails().getIsbn()+"',";
+    emaitza=emaitza+"publishers='"+liburua.getDetails().getPublishers()+"',";
+    emaitza=emaitza+"title='"+liburua.getDetails().getTitle()+"',";
+    emaitza=emaitza+"number_of_pages='"+liburua.getDetails().getNumber_of_pages()+"',";
+
+    emaitza=emaitza+"info_url='"+liburua.getInfo_url()+"',";
+    emaitza=emaitza+"bib_key='"+liburua.getBib_key()+"',";
+    emaitza=emaitza+"preview_url='"+liburua.getBib_key()+"',";
+    emaitza=emaitza+"thumbnail_url='"+liburua.getThumbnail_url()+"',";
+    emaitza=emaitza+"preview='"+liburua.getPreview()+"',";
+
+    return emaitza;
   }
 
 }
