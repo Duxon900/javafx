@@ -9,7 +9,7 @@ public class Utils {
     public static Properties lortuEzarpenak()  {
         Properties properties = null;
 
-        try (InputStream in = Utils.class.getResourceAsStream("/setup.properties.templates")) {
+        try (InputStream in = Utils.class.getResourceAsStream("/setup.properties")) {
             properties = new Properties();
             properties.load(in);
 

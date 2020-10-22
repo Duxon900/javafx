@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -58,6 +59,7 @@ public class XehetasunakKud{
         lblOrriKop.setText(String.valueOf(details.getNumber_of_pages()));
 
         String argazkiUrl=liburua.getThumbnail_url();
+
         Image argazki=new Image(argazkiUrl);
         imageView.setImage(argazki);
     }

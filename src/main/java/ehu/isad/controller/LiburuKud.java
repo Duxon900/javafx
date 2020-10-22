@@ -47,7 +47,7 @@ public class LiburuKud implements Initializable {
       LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
       ResultSet resultSet=liburuDBKudeatzaile.kargatutaDago(unekoa.getIsbn());
 
-      if(resultSet==null){
+      if(!resultSet.first()){
         nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
         nireLiburua.getDetails().setIsbn(unekoa.getIsbn());
         String url=mainApp.getXehetasunakKud().irudiaHanditu(nireLiburua.getThumbnail_url());
@@ -98,10 +98,12 @@ public class LiburuKud implements Initializable {
     //Liburua hasieratu
     Book emaitza=new Book();
 
-    emaitza.setBib_key(resultSet.getString("bib_key"));
+//    emaitza.setBib_key(resultSet.getString("bib_key"));
     emaitza.setInfo_url(resultSet.getString("info_url"));
     emaitza.setPreview_url(resultSet.getString("preview_url"));
     emaitza.setPreview(resultSet.getString("preview"));
+    //thumbnail
+    emaitza.setThumbnail_url(resultSet.getString("thumbnail_url"));
 
     //Detaileak hasieratu
     Details details=new Details(resultSet.getString("title"),resultSet.getString("isbn"));
