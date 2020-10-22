@@ -4,6 +4,7 @@ import ehu.isad.Book;
 import ehu.isad.Details;
 import ehu.isad.Liburuak;
 import ehu.isad.utils.Sarea;
+import ehu.isad.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,6 +75,8 @@ public class LiburuKud implements Initializable {
     );
 
     jarriIzena();
+
+    Utils.lortuEzarpenak();
   }
 
   public void jarriIzena(){
