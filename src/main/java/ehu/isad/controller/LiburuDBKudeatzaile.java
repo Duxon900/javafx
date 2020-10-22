@@ -32,11 +32,11 @@ public class LiburuDBKudeatzaile {
         emaitza=emaitza+"'"+publishers+"',";
         //title && number of pages
         emaitza=emaitza+"'"+liburua.getDetails().getTitle()+"',";
-        emaitza=emaitza+""+liburua.getDetails().getNumber_of_pages()+",";
+        emaitza=emaitza+liburua.getDetails().getNumber_of_pages()+",";
         //url varias
         emaitza=emaitza+"'"+liburua.getInfo_url()+"',";
         emaitza=emaitza+"'"+liburua.getBib_key()+"',";
-        emaitza=emaitza+"'"+liburua.getBib_key()+"',";
+        emaitza=emaitza+"'"+liburua.getPreview_url()+"',";
         //Argazkia
         emaitza=emaitza+"'"+argazkiUrl+"',";
         emaitza=emaitza+"'"+liburua.getPreview()+"'";
