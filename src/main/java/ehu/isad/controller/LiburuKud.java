@@ -41,7 +41,7 @@ public class LiburuKud implements Initializable {
   public void onClick(ActionEvent actionEvent) throws IOException, SQLException {
     if(comboLiburua.getValue()!=null){
       Details unekoa= comboLiburua.getValue();
-      Book nireLiburua=new Book();
+      Book nireLiburua;
 
       LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
       ResultSet resultSet=liburuDBKudeatzaile.kargatutaDago(unekoa.getIsbn());
