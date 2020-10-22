@@ -14,10 +14,8 @@ import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -57,11 +55,17 @@ public class XehetasunakKud{
         lblIzenburua.setText(details.getTitle());
         lblArgitaletxea.setText(details.getPublishers());
         lblOrriKop.setText(String.valueOf(details.getNumber_of_pages()));
+    }
 
-        String argazkiUrl=liburua.getThumbnail_url();
+    public void hasieratuImageDB(Book liburu) throws FileNotFoundException {
+        String path= liburu.getThumbnail_url();
+        Image image=new Image(new FileInputStream(path));
+        imageView.setImage(image);
+    }
 
-        Image argazki=new Image(argazkiUrl);
-        imageView.setImage(argazki);
+    public void hasieratuImage(Book liburu) throws IOException {
+        Image image = createImage(liburu.getThumbnail_url());
+        imageView.setImage(image);
     }
 
     @FXML
@@ -72,7 +76,6 @@ public class XehetasunakKud{
     public Image createImage(String url) throws IOException{
         URLConnection urlConnection=new URL(url).openConnection();
         urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
-
         try(InputStream stream=urlConnection.getInputStream()){
             return new Image(stream);
         }

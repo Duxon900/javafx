@@ -18,7 +18,6 @@ public class LiburuDBKudeatzaile {
         String query="insert into `Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) values("+lortuLiburuBalioak(liburua,argazkiUrl)+");";
 
         DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
-
         dbKudeatzaile.execSQL(query);
     }
 
@@ -62,7 +61,6 @@ public class LiburuDBKudeatzaile {
     public ResultSet kargatutaDago(String isbn){
         DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
         String query="select * from Liburuak where isbn='"+isbn+"'";
-
         try{
             return dbKudeatzaile.execSQL(query);
         }catch (NullPointerException e){

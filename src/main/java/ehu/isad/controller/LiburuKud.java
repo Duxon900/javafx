@@ -53,11 +53,16 @@ public class LiburuKud implements Initializable {
         String url=mainApp.getXehetasunakKud().irudiaHanditu(nireLiburua.getThumbnail_url());
         nireLiburua.setThumbnail_url(url);
 
+        //irudia kargatu
+        mainApp.getXehetasunakKud().hasieratuImage(nireLiburua);
+
         //Datuak db-an gordetzeko
         saveData(nireLiburua);
       }
       else{
         nireLiburua=kargatuLiburua(resultSet);
+        //Irudia kargatu
+        mainApp.getXehetasunakKud().hasieratuImageDB(nireLiburua);
       }
       mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
       mainApp.xehetasunakErakutsi();
