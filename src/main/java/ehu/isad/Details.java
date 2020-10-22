@@ -1,12 +1,14 @@
 package ehu.isad;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Details {
     String ISBN;
     String[] publishers;
     String title;
-    String number_of_pages;
+    int number_of_pages;
 
     public Details(String titleA,String isbnA){
         this.ISBN=isbnA;
@@ -24,7 +26,7 @@ public class Details {
                 '}';
     }
 
-    public String getNumber_of_pages(){
+    public int getNumber_of_pages(){
         return number_of_pages;
     }
 
@@ -38,6 +40,18 @@ public class Details {
 
     public String getIsbn(){
         return ISBN;
+    }
+
+    public void setPublishers(String[] publishers) {
+        this.publishers = publishers;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setNumber_of_pages(int number_of_pages) {
+        this.number_of_pages = number_of_pages;
     }
 
     public void setIsbn(String isbn){

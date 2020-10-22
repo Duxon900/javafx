@@ -55,17 +55,11 @@ public class XehetasunakKud{
         lblIzenburuHandia.setText(details.getTitle()+" Liburuaren fitxa:");
         lblIzenburua.setText(details.getTitle());
         lblArgitaletxea.setText(details.getPublishers());
-        lblOrriKop.setText(details.getNumber_of_pages());
+        lblOrriKop.setText(String.valueOf(details.getNumber_of_pages()));
 
         String argazkiUrl=liburua.getThumbnail_url();
-        argazkiUrl=irudiaHanditu(argazkiUrl);
-        Image argazki=createImage(argazkiUrl);
+        Image argazki=new Image(argazkiUrl);
         imageView.setImage(argazki);
-
-        //Datuak db-an gordetzeko
-        LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
-        String path=liburuDBKudeatzaile.saveToFile(argazki, details.getIsbn());
-        liburuDBKudeatzaile.gordeDatuBasean(liburua,path);
     }
 
     @FXML
@@ -73,7 +67,7 @@ public class XehetasunakKud{
         mainApp.liburuakErakutsi();
     }
 
-    private Image createImage(String url) throws IOException{
+    public Image createImage(String url) throws IOException{
         URLConnection urlConnection=new URL(url).openConnection();
         urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
 

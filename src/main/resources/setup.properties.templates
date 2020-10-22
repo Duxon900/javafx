@@ -1,5 +1,4 @@
 dbname=openLibrary
 user=admin
 password=admin
-useSSL=FALSE
 serverTimezone=Europe/Madrid

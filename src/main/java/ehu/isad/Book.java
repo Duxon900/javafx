@@ -8,6 +8,31 @@ public class Book {
     String preview_url;
     String thumbnail_url;
     Details details;
+
+    public void setInfo_url(String info_url) {
+        this.info_url = info_url;
+    }
+
+    public void setBib_key(String bib_key) {
+        this.bib_key = bib_key;
+    }
+
+    public void setPreview_url(String preview_url) {
+        this.preview_url = preview_url;
+    }
+
+    public void setThumbnail_url(String thumbnail_url) {
+        this.thumbnail_url = thumbnail_url;
+    }
+
+    public void setDetails(Details details) {
+        this.details = details;
+    }
+
+    public void setPreview(String preview) {
+        this.preview = preview;
+    }
+
     String preview;
 
     @Override

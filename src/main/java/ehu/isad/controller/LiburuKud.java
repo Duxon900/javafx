@@ -9,10 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.util.StringConverter;
 
+import javax.imageio.ImageIO;
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LiburuKud implements Initializable {
@@ -33,16 +38,28 @@ public class LiburuKud implements Initializable {
   }
 
   @FXML
-  public void onClick(ActionEvent actionEvent) throws IOException {
+  public void onClick(ActionEvent actionEvent) throws IOException, SQLException {
     if(comboLiburua.getValue()!=null){
       Details unekoa= comboLiburua.getValue();
-      Book nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
-      nireLiburua.getDetails().setIsbn(unekoa.getIsbn());
+      Book nireLiburua=new Book();
 
+      LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
+      ResultSet resultSet=liburuDBKudeatzaile.kargatutaDago(unekoa.getIsbn());
+
+      if(resultSet==null){
+        nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
+        nireLiburua.getDetails().setIsbn(unekoa.getIsbn());
+        String url=mainApp.getXehetasunakKud().irudiaHanditu(nireLiburua.getThumbnail_url());
+        nireLiburua.setThumbnail_url(url);
+
+        //Datuak db-an gordetzeko
+        saveData(nireLiburua);
+      }
+      else{
+        nireLiburua=kargatuLiburua(resultSet);
+      }
       mainApp.getXehetasunakKud().hasieratuDatuak(nireLiburua);
-
       mainApp.xehetasunakErakutsi();
-
     }
   }
 
@@ -72,6 +89,39 @@ public class LiburuKud implements Initializable {
         return null;
       }
     });
+  }
+
+  public Book kargatuLiburua(ResultSet resultSet) throws SQLException {
+    //Liburua hasieratu
+    Book emaitza=new Book();
+
+    emaitza.setBib_key(resultSet.getString("bib_key"));
+    emaitza.setInfo_url(resultSet.getString("info_url"));
+    emaitza.setPreview_url(resultSet.getString("preview_url"));
+    emaitza.setPreview(resultSet.getString("preview"));
+
+    //Detaileak hasieratu
+    Details details=new Details(resultSet.getString("title"),resultSet.getString("isbn"));
+
+    details.setNumber_of_pages(resultSet.getInt("number_of_pages"));
+
+    String izenak=resultSet.getString("publishers");
+    izenak=izenak.replace("[","");
+    izenak=izenak.replace("]","");
+    String[] lista=izenak.split(",");
+    details.setPublishers(lista);
+
+    //emaitzan sartu details eta return
+    emaitza.setDetails(details);
+    return emaitza;
+  }
+
+  private void saveData(Book liburua) throws IOException {
+    Image argazki=mainApp.getXehetasunakKud().createImage(liburua.getThumbnail_url());
+
+    LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
+    String path=liburuDBKudeatzaile.saveToFile(argazki, liburua.getDetails().getIsbn());
+    liburuDBKudeatzaile.gordeDatuBasean(liburua,path);
   }
 
 }

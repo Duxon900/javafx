@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
 
 public class LiburuDBKudeatzaile {
 
@@ -32,28 +33,40 @@ public class LiburuDBKudeatzaile {
         //title && number of pages
         emaitza=emaitza+"'"+liburua.getDetails().getTitle()+"',";
         emaitza=emaitza+""+liburua.getDetails().getNumber_of_pages()+",";
-
         //url varias
         emaitza=emaitza+"'"+liburua.getInfo_url()+"',";
         emaitza=emaitza+"'"+liburua.getBib_key()+"',";
         emaitza=emaitza+"'"+liburua.getBib_key()+"',";
-
-        emaitza=emaitza+"'"+liburua.getThumbnail_url()+"',";
+        //Argazkia
+        emaitza=emaitza+"'"+argazkiUrl+"',";
         emaitza=emaitza+"'"+liburua.getPreview()+"'";
+
 
         return emaitza;
     }
 
     public String saveToFile(Image image,String isbn) {
-        File outputFile = new File("~/IdeaProjects/javafx/ArgazkiBU/"+isbn+".jpg");
+        File outputFile = new File("ArgazkiBU/"+isbn+".jpg");
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+
         try {
             ImageIO.write(bImage, "jpg", outputFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return outputFile.getAbsolutePath();
+    }
 
+
+    public ResultSet kargatutaDago(String isbn){
+        DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
+        String query="select * from Liburuak where isbn='"+isbn+"'";
+
+        try{
+            return dbKudeatzaile.execSQL(query);
+        }catch (NullPointerException e){
+            return null;
+        }
     }
 
 }
