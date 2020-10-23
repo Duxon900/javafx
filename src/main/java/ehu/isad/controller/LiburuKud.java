@@ -13,12 +13,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.util.StringConverter;
 
-import javax.imageio.ImageIO;
-import javax.xml.transform.Result;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class LiburuKud implements Initializable {
@@ -102,13 +101,15 @@ public class LiburuKud implements Initializable {
   public Book kargatuLiburua(ResultSet resultSet) throws SQLException {
     //Liburua hasieratu
     Book emaitza=new Book();
+    Properties properties= Utils.lortuEzarpenak();
+    String path=properties.getProperty("imageDir");
 
 //    emaitza.setBib_key(resultSet.getString("bib_key"));
     emaitza.setInfo_url(resultSet.getString("info_url"));
     emaitza.setPreview_url(resultSet.getString("preview_url"));
     emaitza.setPreview(resultSet.getString("preview"));
     //thumbnail
-    emaitza.setThumbnail_url(resultSet.getString("thumbnail_url"));
+    emaitza.setThumbnail_url(path+resultSet.getString("thumbnail_url"));
 
     //Detaileak hasieratu
     Details details=new Details(resultSet.getString("title"),resultSet.getString("isbn"));
@@ -130,8 +131,8 @@ public class LiburuKud implements Initializable {
     Image argazki=mainApp.getXehetasunakKud().createImage(liburua.getThumbnail_url());
 
     LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
-    String path=liburuDBKudeatzaile.saveToFile(argazki, liburua.getDetails().getIsbn());
-    liburuDBKudeatzaile.gordeDatuBasean(liburua,path);
+    liburuDBKudeatzaile.saveToFile(argazki, liburua.getDetails().getIsbn());
+    liburuDBKudeatzaile.gordeDatuBasean(liburua);
   }
 
 }

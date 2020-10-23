@@ -1,6 +1,7 @@
 package ehu.isad.controller;
 
 import ehu.isad.Book;
+import ehu.isad.utils.Utils;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
@@ -9,19 +10,20 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.util.Properties;
 
 public class LiburuDBKudeatzaile {
 
-    public void gordeDatuBasean(Book liburua, String argazkiUrl){
+    public void gordeDatuBasean(Book liburua){
         //INSERT INTO `openLibrary`.`Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) VALUES ('1', '2', '3', '3', '4', '1', '34', '1', '4');
 
-        String query="insert into `Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) values("+lortuLiburuBalioak(liburua,argazkiUrl)+");";
+        String query="insert into `Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) values("+lortuLiburuBalioak(liburua)+");";
 
         DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
         dbKudeatzaile.execSQL(query);
     }
 
-    public String lortuLiburuBalioak(Book liburua, String argazkiUrl){
+    public String lortuLiburuBalioak(Book liburua){
         String emaitza="";
 
         //ISBN
@@ -38,7 +40,7 @@ public class LiburuDBKudeatzaile {
         emaitza=emaitza+"'"+liburua.getBib_key()+"',";
         emaitza=emaitza+"'"+liburua.getPreview_url()+"',";
         //Argazkia
-        emaitza=emaitza+"'"+argazkiUrl+"',";
+        emaitza=emaitza+"'"+liburua.getDetails().getIsbn()+".jpg',";
         emaitza=emaitza+"'"+liburua.getPreview()+"'";
 
 
@@ -46,7 +48,10 @@ public class LiburuDBKudeatzaile {
     }
 
     public String saveToFile(Image image,String isbn) {
-        File outputFile = new File("ArgazkiBU/"+isbn+".jpg");
+        Properties properties= Utils.lortuEzarpenak();
+        String path=properties.getProperty("imageDir");
+
+        File outputFile = new File(path+isbn+".jpg");
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
 
         try {
