@@ -44,7 +44,7 @@ public class LiburuKud implements Initializable {
       Book nireLiburua;
 
       LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
-      ResultSet resultSet=liburuDBKudeatzaile.kargatutaDago(unekoa.getIsbn());
+      ResultSet resultSet=liburuDBKudeatzaile.kargatutaDago(unekoa.getIsbn()+".jpg");
 
       if(!resultSet.first()){
         nireLiburua= Sarea.readFromUrl(unekoa.getIsbn());
@@ -102,7 +102,7 @@ public class LiburuKud implements Initializable {
     //Liburua hasieratu
     Book emaitza=new Book();
     Properties properties= Utils.lortuEzarpenak();
-    String path=properties.getProperty("imageDir");
+    String path=properties.getProperty("imagePath");
 
 //    emaitza.setBib_key(resultSet.getString("bib_key"));
     emaitza.setInfo_url(resultSet.getString("info_url"));
@@ -132,7 +132,7 @@ public class LiburuKud implements Initializable {
 
     LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
     liburuDBKudeatzaile.saveToFile(argazki, liburua.getDetails().getIsbn());
-    liburuDBKudeatzaile.gordeDatuBasean(liburua);
+    liburuDBKudeatzaile.updateDatuBasea(liburua);
   }
 
 }

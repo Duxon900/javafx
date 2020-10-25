@@ -1,5 +1,7 @@
 package ehu.isad;
 
+import ehu.isad.controller.DBKudeatzaile;
+import ehu.isad.controller.LiburuDBKudeatzaile;
 import ehu.isad.controller.LiburuKud;
 import ehu.isad.controller.XehetasunakKud;
 import javafx.application.Application;
@@ -9,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Liburuak extends Application {
 
@@ -52,7 +55,9 @@ public class Liburuak extends Application {
 
 
   public static void main(String[] args) {
+    sartuDatuakDB();
     launch(args);
+    ezabatuDatuak();
   }
 
   public void xehetasunakErakutsi() {
@@ -63,6 +68,39 @@ public class Liburuak extends Application {
   public void liburuakErakutsi() {
     stage.setScene(liburuKudScene);
     stage.show();
+  }
+
+  private static void sartuDatuakDB(){
+    var lista=Arrays.asList(
+            new Details("Blockchain: Blueprint for a New Economy","9781491920497"),
+            new Details("R for Data Science","1491910399"),
+            new Details("Fluent Python","1491946008"),
+            new Details("Natural Language Processing with PyTorch","1491978236"),
+            new Details("Data Algorithms","9781491906187")
+    );
+
+    LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
+
+    for(int i=0;i<lista.size();i++){
+      liburuDBKudeatzaile.gordeDatuak(lista.get(i));
+    }
+  }
+
+
+  private static void ezabatuDatuak(){
+    var lista=Arrays.asList(
+            new Details("Blockchain: Blueprint for a New Economy","9781491920497"),
+            new Details("R for Data Science","1491910399"),
+            new Details("Fluent Python","1491946008"),
+            new Details("Natural Language Processing with PyTorch","1491978236"),
+            new Details("Data Algorithms","9781491906187")
+    );
+
+    LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
+
+    for(int i=0;i<lista.size();i++){
+      liburuDBKudeatzaile.ezabatuDatuak(lista.get(i));
+    }
   }
 
 

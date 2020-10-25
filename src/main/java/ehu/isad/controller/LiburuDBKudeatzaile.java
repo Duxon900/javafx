@@ -1,6 +1,7 @@
 package ehu.isad.controller;
 
 import ehu.isad.Book;
+import ehu.isad.Details;
 import ehu.isad.utils.Utils;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -10,46 +11,39 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class LiburuDBKudeatzaile {
 
-    public void gordeDatuBasean(Book liburua){
-        //INSERT INTO `openLibrary`.`Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) VALUES ('1', '2', '3', '3', '4', '1', '34', '1', '4');
+    public void updateDatuBasea(Book liburua){
+        //(`publishers`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`)
+        String publishers=liburua.getDetails().getPublishers();
+        publishers=publishers.replace('\'',' ');
 
-        String query="insert into `Liburuak` (`isbn`, `publishers`, `title`, `number_of_pages`, `info_url`, `bib_key`, `preview_url`, `thumbnail_url`, `preview`) values("+lortuLiburuBalioak(liburua)+");";
+        String query="update `Liburuak` set publishers='"+
+                publishers+"', number_of_pages='"+
+                liburua.getDetails().getNumber_of_pages()+"', info_url='"+
+                liburua.getInfo_url()+"', bib_key='"+
+                liburua.getBib_key()+"', preview_url='"+
+                liburua.getPreview_url()+"', thumbnail_url='"+
+                liburua.getDetails().getIsbn()+".jpg', preview='"+
+                liburua.getPreview()+"' where isbn='"+ liburua.getDetails().getIsbn()+"'";
 
         DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
         dbKudeatzaile.execSQL(query);
     }
 
-    public String lortuLiburuBalioak(Book liburua){
-        String emaitza="";
+    public void gordeDatuak(Details details){
+        String query="insert into `Liburuak` (`isbn`, `title`) values('"+details.getIsbn()+"','"+details.getTitle()+"')";
 
-        //ISBN
-        emaitza=emaitza+"'"+liburua.getDetails().getIsbn()+"',";
-        //publisher
-        String publishers=liburua.getDetails().getPublishers();
-        publishers=publishers.replace('\'',' ');
-        emaitza=emaitza+"'"+publishers+"',";
-        //title && number of pages
-        emaitza=emaitza+"'"+liburua.getDetails().getTitle()+"',";
-        emaitza=emaitza+liburua.getDetails().getNumber_of_pages()+",";
-        //url varias
-        emaitza=emaitza+"'"+liburua.getInfo_url()+"',";
-        emaitza=emaitza+"'"+liburua.getBib_key()+"',";
-        emaitza=emaitza+"'"+liburua.getPreview_url()+"',";
-        //Argazkia
-        emaitza=emaitza+"'"+liburua.getDetails().getIsbn()+".jpg',";
-        emaitza=emaitza+"'"+liburua.getPreview()+"'";
-
-
-        return emaitza;
+        DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
     }
 
     public String saveToFile(Image image,String isbn) {
         Properties properties= Utils.lortuEzarpenak();
-        String path=properties.getProperty("imageDir");
+        String path=properties.getProperty("imagePath");
 
         File outputFile = new File(path+isbn+".jpg");
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
@@ -65,12 +59,20 @@ public class LiburuDBKudeatzaile {
 
     public ResultSet kargatutaDago(String isbn){
         DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
-        String query="select * from Liburuak where isbn='"+isbn+"'";
+        String query="select * from Liburuak where thumbnail_url='"+isbn+"'";
         try{
             return dbKudeatzaile.execSQL(query);
         }catch (NullPointerException e){
             return null;
         }
+    }
+
+    public boolean ezabatuDatuak(Details details){
+        DBKudeatzaile dbKudeatzaile=DBKudeatzaile.getInstantzia();
+        String query="delete from Liburuak where isbn='"+details.getIsbn()+"'";
+        dbKudeatzaile.execSQL(query);
+        return true;
+
     }
 
 }
