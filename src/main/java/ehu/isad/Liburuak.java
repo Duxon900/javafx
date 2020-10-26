@@ -99,6 +99,7 @@ public class Liburuak extends Application {
     LiburuDBKudeatzaile liburuDBKudeatzaile=new LiburuDBKudeatzaile();
 
     for(int i=0;i<lista.size();i++){
+
       liburuDBKudeatzaile.ezabatuDatuak(lista.get(i));
     }
   }
